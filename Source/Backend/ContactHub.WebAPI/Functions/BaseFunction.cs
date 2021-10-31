@@ -1,4 +1,4 @@
-using ContactHub.Data.Models;
+using ContactHub.WebApi.Models;
 
 namespace ContactHub.WebAPI.Functions
 {

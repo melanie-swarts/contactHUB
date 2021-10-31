@@ -17,7 +17,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Web.Http.Cors;
-using ContactHub.Data.Models;
+using ContactHub.WebApi.Models;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 
 namespace ContactHub.WebAPI.Functions
@@ -38,10 +38,10 @@ namespace ContactHub.WebAPI.Functions
             return new OkObjectResult(result);
         }
 
-        [FunctionName("GetSystemUserById")]
-        public static IActionResult GetSystemUserId([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "systemUser/{id}")] HttpRequest req, int id, ILogger log)
+        [FunctionName("GetSystemUserByAspNetUserId")]
+        public static IActionResult GetSystemUserByAspNetUserId([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "systemUser/{id}")] HttpRequest req, string id, ILogger log)
         {
-            var systemUser = Context.SystemUser.Where(x => x.Id == id);
+            var systemUser = Context.SystemUser.Where(x => x.AspNetUserId == id);
 
             IQueryable<SystemUser> result = systemUser.AsQueryable();
 

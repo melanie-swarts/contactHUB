@@ -1,4 +1,4 @@
-﻿namespace ContactHub.Data.Models
+﻿namespace ContactHub.WebApi.Models
 {
     public class CalendarEventTypeColor
     {

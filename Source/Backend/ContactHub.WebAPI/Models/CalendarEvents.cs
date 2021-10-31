@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ContactHub.Data.Models
+namespace ContactHub.WebApi.Models
 {
     public class CalendarEvents
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using ContactHub.Data.Models;
+using ContactHub.WebApi.Models;
 
 namespace ContactHub.WebAPI.Mappers
 {

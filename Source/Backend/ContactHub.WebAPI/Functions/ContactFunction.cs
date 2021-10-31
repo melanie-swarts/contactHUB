@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
-using ContactHub.Data.Models;
+using ContactHub.WebApi.Models;
 using System.Linq;
+using ContactHub.WebAPI.Mappers;
+using ContactHub.WebAPI.Properties;
 
 namespace ContactHub.WebAPI.Functions
 {
@@ -33,6 +35,19 @@ namespace ContactHub.WebAPI.Functions
             IQueryable<Contact> result = contact.AsQueryable();
 
             return new OkObjectResult(result);
+        }
+
+        [FunctionName("CreateContact")]
+        public async Task<IActionResult> CreateContact([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "contact/createContact")] HttpRequest req, ILogger log)
+        {
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var contactDetails = JsonConvert.DeserializeObject<Contact>(requestBody);
+
+            Context.Contact.Add(ContactMapper.MapForCreate(contactDetails));
+            Context.SaveChanges();
+
+            return new OkObjectResult(Resources.ResourceManager.GetString("SuccessMessage_UserRegistration"));
+
         }
     }
 }

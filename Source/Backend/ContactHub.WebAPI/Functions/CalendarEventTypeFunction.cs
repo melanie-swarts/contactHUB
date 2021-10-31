@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using ContactHub.Data.Models;
+using ContactHub.WebApi.Models;
 
 namespace ContactHub.WebAPI.Functions
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ContactHub.Data.Models;
+using ContactHub.WebApi.Models;
 
 namespace ContactHub.WebAPI.Functions
 {

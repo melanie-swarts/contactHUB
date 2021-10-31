@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ContactHub.Data.Models
+namespace ContactHub.WebApi.Models
 {
     public class Contact
     {
@@ -13,13 +13,12 @@ namespace ContactHub.Data.Models
         public string WorkNumber { get; set; }
         public string HomeNumber { get; set; }
         public string emailAddress { get; set; }
-        public int AddressId { get; set; }
+        public string Address { get; set; }
         public DateTime? Birthdy { get; set; }
         public int BirthdayCalendarEventId { get; set; }
         public string Website { get; set; }
         public DateTime LastViewed { get; set; }
         public DateTime CreatedAt { get; set; }
-        public virtual Address Address { get; set; }
         public virtual CalendarEvents ContactBirthdayEvent { get; set; }
 
     }

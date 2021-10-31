@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
-using ContactHub.Data.Models;
+using ContactHub.WebApi.Models;
 using System.Linq;
 
 namespace ContactHub.WebAPI.Functions
