@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ContactHub.WebAPI.Migrations
+namespace ClassLibrary2.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211031120502_Initial")]
+    [Migration("20211101152218_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,10 +62,7 @@ namespace ContactHub.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CalendarEventTypeColorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CalendarEventsId")
+                    b.Property<int?>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -74,17 +71,12 @@ namespace ContactHub.WebAPI.Migrations
                     b.Property<bool>("Enabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("EventTypeColorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("EventTypeName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CalendarEventTypeColorId");
-
-                    b.HasIndex("CalendarEventsId");
+                    b.HasIndex("ColorId");
 
                     b.ToTable("CalendarEventType");
                 });
@@ -120,7 +112,7 @@ namespace ContactHub.WebAPI.Migrations
                     b.Property<bool>("AllDayEvent")
                         .HasColumnType("bit");
 
-                    b.Property<int>("CalendarEventTypeId")
+                    b.Property<int?>("CalendarEventTypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -161,9 +153,6 @@ namespace ContactHub.WebAPI.Migrations
                     b.Property<DateTime?>("Birthdy")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ContactBirthdayEventId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -188,6 +177,9 @@ namespace ContactHub.WebAPI.Migrations
                     b.Property<string>("PrimaryContactNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SystemUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
@@ -198,8 +190,6 @@ namespace ContactHub.WebAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ContactBirthdayEventId");
 
                     b.ToTable("Contact");
                 });
@@ -247,29 +237,16 @@ namespace ContactHub.WebAPI.Migrations
 
             modelBuilder.Entity("ContactHub.WebApi.Models.CalendarEventType", b =>
                 {
-                    b.HasOne("ContactHub.WebApi.Models.CalendarEventTypeColor", "CalendarEventTypeColor")
+                    b.HasOne("ContactHub.WebApi.Models.CalendarEventTypeColor", "Color")
                         .WithMany()
-                        .HasForeignKey("CalendarEventTypeColorId");
-
-                    b.HasOne("ContactHub.WebApi.Models.CalendarEvents", null)
-                        .WithMany("CalendarEventTypes")
-                        .HasForeignKey("CalendarEventsId");
+                        .HasForeignKey("ColorId");
                 });
 
             modelBuilder.Entity("ContactHub.WebApi.Models.CalendarEvents", b =>
                 {
                     b.HasOne("ContactHub.WebApi.Models.CalendarEventType", "CalendarEventType")
                         .WithMany()
-                        .HasForeignKey("CalendarEventTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ContactHub.WebApi.Models.Contact", b =>
-                {
-                    b.HasOne("ContactHub.WebApi.Models.CalendarEvents", "ContactBirthdayEvent")
-                        .WithMany()
-                        .HasForeignKey("ContactBirthdayEventId");
+                        .HasForeignKey("CalendarEventTypeId");
                 });
 
             modelBuilder.Entity("ContactHub.WebApi.Models.SystemUser", b =>

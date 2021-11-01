@@ -5,6 +5,7 @@ namespace ContactHub.WebApi.Models
     public class Contact
     {
         public int Id { get; set; }
+        public int SystemUserId { get; set; }
         public byte[] Photo { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,11 +16,9 @@ namespace ContactHub.WebApi.Models
         public string emailAddress { get; set; }
         public string Address { get; set; }
         public DateTime? Birthdy { get; set; }
-        public int BirthdayCalendarEventId { get; set; }
         public string Website { get; set; }
         public DateTime LastViewed { get; set; }
         public DateTime CreatedAt { get; set; }
-        public virtual CalendarEvents ContactBirthdayEvent { get; set; }
 
     }
 }

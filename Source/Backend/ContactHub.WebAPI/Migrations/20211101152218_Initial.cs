@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ContactHub.WebAPI.Migrations
+namespace ClassLibrary2.Migrations
 {
     public partial class Initial : Migration
     {
@@ -42,6 +42,32 @@ namespace ContactHub.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contact",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SystemUserId = table.Column<int>(nullable: false),
+                    Photo = table.Column<byte[]>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    PrimaryContactNumber = table.Column<string>(nullable: true),
+                    MobileNumber = table.Column<string>(nullable: true),
+                    WorkNumber = table.Column<string>(nullable: true),
+                    HomeNumber = table.Column<string>(nullable: true),
+                    emailAddress = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Birthdy = table.Column<DateTime>(nullable: true),
+                    Website = table.Column<string>(nullable: true),
+                    LastViewed = table.Column<DateTime>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contact", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SystemUser",
                 columns: table => new
                 {
@@ -75,18 +101,16 @@ namespace ContactHub.WebAPI.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EventTypeName = table.Column<string>(nullable: true),
-                    EventTypeColorId = table.Column<int>(nullable: false),
-                    CalendarEventTypeColorId = table.Column<int>(nullable: true),
                     Enabled = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
-                    CalendarEventsId = table.Column<int>(nullable: true)
+                    ColorId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CalendarEventType", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CalendarEventType_CalendarEventTypeColor_CalendarEventTypeColorId",
-                        column: x => x.CalendarEventTypeColorId,
+                        name: "FK_CalendarEventType_CalendarEventTypeColor_ColorId",
+                        column: x => x.ColorId,
                         principalTable: "CalendarEventTypeColor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -98,13 +122,13 @@ namespace ContactHub.WebAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CalendarEventTypeId = table.Column<int>(nullable: false),
                     EventName = table.Column<string>(nullable: true),
                     AllDayEvent = table.Column<bool>(nullable: false),
                     StartDateTime = table.Column<DateTime>(nullable: false),
                     EndDateTime = table.Column<DateTime>(nullable: false),
                     RepeatEvent = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false)
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CalendarEventTypeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -113,39 +137,6 @@ namespace ContactHub.WebAPI.Migrations
                         name: "FK_CalendarEvents_CalendarEventType_CalendarEventTypeId",
                         column: x => x.CalendarEventTypeId,
                         principalTable: "CalendarEventType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Contact",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Photo = table.Column<byte[]>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    PrimaryContactNumber = table.Column<string>(nullable: true),
-                    MobileNumber = table.Column<string>(nullable: true),
-                    WorkNumber = table.Column<string>(nullable: true),
-                    HomeNumber = table.Column<string>(nullable: true),
-                    emailAddress = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    Birthdy = table.Column<DateTime>(nullable: true),
-                    BirthdayCalendarEventId = table.Column<int>(nullable: false),
-                    Website = table.Column<string>(nullable: true),
-                    LastViewed = table.Column<DateTime>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ContactBirthdayEventId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contact", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Contact_CalendarEvents_ContactBirthdayEventId",
-                        column: x => x.ContactBirthdayEventId,
-                        principalTable: "CalendarEvents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -156,39 +147,20 @@ namespace ContactHub.WebAPI.Migrations
                 column: "CalendarEventTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CalendarEventType_CalendarEventTypeColorId",
+                name: "IX_CalendarEventType_ColorId",
                 table: "CalendarEventType",
-                column: "CalendarEventTypeColorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CalendarEventType_CalendarEventsId",
-                table: "CalendarEventType",
-                column: "CalendarEventsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contact_ContactBirthdayEventId",
-                table: "Contact",
-                column: "ContactBirthdayEventId");
+                column: "ColorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SystemUser_AspNetUserId",
                 table: "SystemUser",
                 column: "AspNetUserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CalendarEventType_CalendarEvents_CalendarEventsId",
-                table: "CalendarEventType",
-                column: "CalendarEventsId",
-                principalTable: "CalendarEvents",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_CalendarEvents_CalendarEventType_CalendarEventTypeId",
-                table: "CalendarEvents");
+            migrationBuilder.DropTable(
+                name: "CalendarEvents");
 
             migrationBuilder.DropTable(
                 name: "Contact");
@@ -197,16 +169,13 @@ namespace ContactHub.WebAPI.Migrations
                 name: "SystemUser");
 
             migrationBuilder.DropTable(
-                name: "AspNetUser");
-
-            migrationBuilder.DropTable(
                 name: "CalendarEventType");
 
             migrationBuilder.DropTable(
-                name: "CalendarEventTypeColor");
+                name: "AspNetUser");
 
             migrationBuilder.DropTable(
-                name: "CalendarEvents");
+                name: "CalendarEventTypeColor");
         }
     }
 }

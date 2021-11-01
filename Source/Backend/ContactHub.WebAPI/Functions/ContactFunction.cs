@@ -46,7 +46,20 @@ namespace ContactHub.WebAPI.Functions
             Context.Contact.Add(ContactMapper.MapForCreate(contactDetails));
             Context.SaveChanges();
 
-            return new OkObjectResult(Resources.ResourceManager.GetString("SuccessMessage_UserRegistration"));
+            return new OkObjectResult(contactDetails);
+
+        }
+
+        [FunctionName("UpdateContact")]
+        public async Task<IActionResult> UpdateContact([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "contact/updateContact")] HttpRequest req, ILogger log)
+        {
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var contactDetails = JsonConvert.DeserializeObject<Contact>(requestBody);
+
+            Context.Contact.Update(contactDetails);
+            Context.SaveChanges();
+
+            return new OkObjectResult("Ok");
 
         }
     }

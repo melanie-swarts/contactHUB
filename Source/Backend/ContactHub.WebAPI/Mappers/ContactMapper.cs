@@ -20,6 +20,7 @@ namespace ContactHub.WebAPI.Mappers
                 emailAddress = contact.emailAddress,
                 Address = contact.Address,
                 Website = contact.Website,
+                Birthdy = contact.Birthdy,
                 LastViewed = DateTime.Now,
                 CreatedAt = DateTime.Now
             };

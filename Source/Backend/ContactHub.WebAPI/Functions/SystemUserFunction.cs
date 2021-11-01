@@ -110,10 +110,23 @@ namespace ContactHub.WebAPI.Functions
             if (user != null)
                 return new ObjectResult(Resources.ResourceManager.GetString("ErrorMessage_UserExists")); 
 
-            Context.SystemUser.Add(SystemUserMapper.MapForCreate(userDetails));
+            Context.SystemUser.Add(userDetails);
             Context.SaveChanges();
 
             return new OkObjectResult(Resources.ResourceManager.GetString("SuccessMessage_UserRegistration"));
+
+        }
+
+        [FunctionName("UpdateSystemUser")]
+        public async Task<IActionResult> UpdateSystemUser([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "systemUser/updateSystemUser")] HttpRequest req, ILogger log)
+        {
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var userDetails = JsonConvert.DeserializeObject<SystemUser>(requestBody);
+
+            Context.SystemUser.Update(userDetails);
+            Context.SaveChanges();
+
+            return new OkObjectResult("ok");
 
         }
 
@@ -128,8 +141,6 @@ namespace ContactHub.WebAPI.Functions
 
             if (user == null)
                 return new BadRequestObjectResult(Resources.ResourceManager.GetString("ErrorMessage_NoUserFound"));
-
-            //geneate token in email auth
 
             return new OkObjectResult(Resources.ResourceManager.GetString("SuccessMessage_PasswordReset"));
 

@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using ContactHub.WebApi.Models;
+using ContactHub.WebAPI.Properties;
+using ContactHub.WebAPI.Mappers;
 
 namespace ContactHub.WebAPI.Functions
 {
@@ -33,6 +35,19 @@ namespace ContactHub.WebAPI.Functions
             IQueryable<CalendarEventType> result = calendarEventType.AsQueryable();
 
             return new OkObjectResult(result);
+        }
+
+        [FunctionName("CreateCalendarEventType")]
+        public async Task<IActionResult> CreateCalendarEventType([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "calendarEventTypes/createEventType")] HttpRequest req, ILogger log)
+        {
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var eventTypeDetails = JsonConvert.DeserializeObject<CalendarEventType>(requestBody);
+
+            Context.CalendarEventType.Add(eventTypeDetails);
+            Context.SaveChanges();
+
+            return new OkObjectResult(Resources.ResourceManager.GetString("SuccessMessage_UserRegistration"));
+
         }
     }
 }

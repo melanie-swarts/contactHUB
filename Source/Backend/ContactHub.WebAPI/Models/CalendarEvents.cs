@@ -6,7 +6,6 @@ namespace ContactHub.WebApi.Models
     public class CalendarEvents
     {
         public int Id { get; set; }
-        public int CalendarEventTypeId { get; set; }
         public string EventName { get; set; }
         public bool AllDayEvent { get; set; }
         public DateTime StartDateTime { get; set; }
@@ -14,7 +13,6 @@ namespace ContactHub.WebApi.Models
         public bool RepeatEvent { get; set; }
         public DateTime CreatedAt { get; set; }
         public virtual CalendarEventType CalendarEventType { get; set; }
-        public virtual IList<CalendarEventType> CalendarEventTypes { get; set; }
 
     }
 }
