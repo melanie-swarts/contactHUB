@@ -19,5 +19,6 @@ Run directly on VS2019
 or 
 Update-Database
 dotnet run
+
 Running on
 http://localhost:7071/
