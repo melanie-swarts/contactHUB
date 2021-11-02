@@ -1,24 +1,24 @@
 # contactHUB
 CIB Digital Tech Assessment
 
-Frontend:
+##Frontend:##
 vue.js app using vuex
 
-## To run app, run follwing cmds ##
+#To run app, run follwing cmds#
 npm i
 npm run dev
 
-## Running on ##
+# Running on #
 http://localhost:9527/
 
-Backend:
+##Backend:##
 .Net Core 3.1 using Entity Framework Core
 
-## To run app, run follwing cmds ##
+#To run app, run follwing cmds #
 Run directly on VS2019
 or 
 Update-Database
 dotnet run
 
-## Running on ##
+# Running on #
 http://localhost:7071/
