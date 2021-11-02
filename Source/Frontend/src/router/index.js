@@ -138,27 +138,6 @@ export const asyncRouterMap = [
             })
         }
       }
-      // {
-      //   hidden: true,
-      //   path: 'contactInformation/:id?',
-      //   component: () => import('@/views/contacts/contactInformation'),
-      //   name: 'ContactInfo',
-      //   props: true,
-      //   meta: { title: 'Contact Information' },
-      //   beforeEnter(routeTo, routeFrom, next) {
-      //     if (!routeTo.params) {
-      //       next()
-      //     } else {
-      //       store
-      //         .dispatch('contacts/fetchContact', routeTo.params.id)
-      //         .then(contact => {
-      //           console.log(contact)
-      //           routeTo.params.contact = contact
-      //           next()
-      //         })
-      //     }
-      //   }
-      // }
     ]
   },
   {
@@ -216,6 +195,7 @@ export const asyncRouterMap = [
   },
   {
     path: '/userAccount',
+    hidden: true,
     component: Layout,
     name: 'Profile',
     meta: {title: 'Profile', icon: 'user' },

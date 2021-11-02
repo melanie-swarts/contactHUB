@@ -15,6 +15,7 @@
         <v-tab>
           <div class="wrapper" >
             <div class="info-0">Calendar</div>
+             <div class="info-1">Event Types</div>
           </div>
         </v-tab>
         <v-tab>
@@ -28,14 +29,7 @@
         <!-- Calendar -->
         <v-tab-item>
           <v-card flat style="padding:15px">
-            <v-expansion-panels v-model="panel" class="mb-6" accordion focusable>
-              <v-expansion-panel>
-                <v-expansion-panel-header expand-icon="mdi-menu-down">Calendar Event Types</v-expansion-panel-header>
-                <v-expansion-panel-content>
                   <calendar-event-types />
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
           </v-card>
         </v-tab-item>
 

@@ -9,6 +9,7 @@
     >
       <div class="title-container">
         <img class="logo" src="@/assets/images/logo.png" alt="ContactHUB">
+        <h3 class="main-title">Welcome to your contactHUB</h3>
         <h3 class="title">{{ $t('login.title') }}</h3>
       </div>
       <el-form-item prop="username">
@@ -38,7 +39,7 @@
           <svg-icon icon-class="eye"/>
         </span>
       </el-form-item>
-      <div class="forgot-password"><router-link :to="{ name: 'NewPassword' }"><a>Forgot your password?</a></router-link></div>
+      <!-- <div class="forgot-password"><router-link :to="{ name: 'NewPassword' }"><a>Forgot your password?</a></router-link></div> -->
       <el-button
         :loading="loading"
         type="primary"
@@ -221,7 +222,14 @@ $light_gray: #eee;
   }
   .title-container {
     position: relative;
-    .title {
+    .main-title {
+      font-size: 28px;
+      color: $dark_gray;
+      margin: 0px auto 10px auto;
+      text-align: center;
+      font-weight: bold;
+    }
+        .title {
       font-size: 26px;
       color: $dark_gray;
       margin: 0px auto 20px auto;

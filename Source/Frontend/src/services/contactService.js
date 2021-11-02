@@ -31,7 +31,7 @@ export default {
   },
   updateContact(id, data) {
     return new Promise(function(resolve, reject) {
-      o('Contacts/' + id)
+      o('contact/updateContact')
         .put(data)
         .save(
           function() {

@@ -44,7 +44,7 @@ export const actions = {
   },
   updateContact({ commit, dispatch }, updatedContact) {
     return contactService.updateContact(
-      updatedContact.Id,
+      updatedContact.id,
       updatedContact
     ).catch(error => {
       console.log('error')

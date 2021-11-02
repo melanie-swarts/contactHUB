@@ -1,13 +1,10 @@
 <template>
   <div>
     <div class="box-info">
+          <div class="header-container">
       <div class="header-text">Create Account</div>
+    </div>
       <div class="box-form">
-         <el-row class="info-card-row">
-                <div class="info-card-header">Personal Details</div>
-              </el-row>
-              <v-form ref="personal-details" class="info-form-box">
-                <br>
                 <el-row>
                   <el-form>
                 <el-row>
@@ -37,6 +34,9 @@
                       v-model="systemUser.PrimaryContactNumber"
                       :rules="personalDetailRules.PrimaryContactNumber"
                       label="Primary Contact Number"
+                      type="number"
+                      :counter="10"
+                      :maxlength="10"
                       required
                     />
                   </el-col>
@@ -46,9 +46,10 @@
                   <el-col :span="12">
                     <v-text-field
                       v-model="systemUser.MobileNumber"
-                      :rules="personalDetailRules.MobileNumber"
                       label="Mobile Number"
-                      required
+                      type="number"
+                      :counter="10"
+                      :maxlength="10"
                     />
                   </el-col>
                 </el-row>
@@ -57,7 +58,9 @@
                     <v-text-field
                       v-model="systemUser.HomeNumber"
                       label="Home Number"
-                      required
+                      type="number"
+                      :counter="10"
+                      :maxlength="10"
                     />
                   </el-col>
                   <el-col :span="1">
@@ -67,11 +70,14 @@
                     <v-text-field
                       v-model="systemUser.WorkNumber"
                       label="Work Number"
-                      required
+                      type="number"
+                      :counter="10"
+                      :maxlength="10"
                     />
                   </el-col>
                 </el-row>
-
+                <br />
+                                <br />
       <el-button
         :loading="loading"
         type="primary"
@@ -80,7 +86,6 @@
         @click.native.prevent="handleCreate">Submit</el-button>
                   </el-form>
                 </el-row>
-              </v-form>
       </div>
     </div>
   </div>
@@ -99,9 +104,7 @@ export default {
       personalDetailRules: {
         FirstName: [val => (val || '').length > 0 || 'First Name is required.'],
         LastName: [val => (val || '').length > 0 || 'Last Name is required'],
-        PrimaryContactNumber: [val => (val || '').length > 0 || 'Primary Contact Number is required.'],
-        MobileNumber: [val => (val || '').length > 0 || 'Mobile Number is required']
-
+        PrimaryContactNumber: [val => (val || '').length > 0 || 'Primary Contact Number is required.']
       },
     }
   },
@@ -134,7 +137,7 @@ export default {
           this.loading = true
           this.$store.dispatch('CreateNewUser', this.systemUser).then(() => {
             this.loading = false
-            this.$router.push({ name: 'dashboard' })
+            this.$router.push({ path: this.redirect || '/' })
           }).catch(() => {
             this.loading = false
           })

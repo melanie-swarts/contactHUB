@@ -4,18 +4,18 @@ o().config({
 })
 
 export default {
-  getCalendarEventType() {
-    return o('CalendarEventTypes')
+  getCalendarEvents() {
+    return o('calendarEvents')
       .get()
   },
-  getCalendarEventTypeById(id) {
-    return o('CalendarEventTypes/' + id)
+  getCalendarEventById(id) {
+    return o('calendarEvent/' + id)
       .get()
   },
-  createCalendarEventType(data) {
+  createCalendarEvent(data) {
     console.log(data)
     return new Promise(function(resolve, reject) {
-      o('CalendarEventTypes')
+      o('calendarEvents/createEvent')
         .post(data)
         .save(
           function(result) {
@@ -29,9 +29,9 @@ export default {
         )
     })
   },
-  updateCalendarEventType(id, data) {
+  updateCalendarEvent(id, data) {
     return new Promise(function(resolve, reject) {
-      o('CalendarEventTypes/' + id)
+      o('CalendarEvent/' + id)
         .put(data)
         .save(
           function() {

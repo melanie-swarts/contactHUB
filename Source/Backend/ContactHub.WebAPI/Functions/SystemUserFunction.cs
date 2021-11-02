@@ -108,12 +108,12 @@ namespace ContactHub.WebAPI.Functions
             var user = Context.SystemUser.SingleOrDefault(x => x.AspNetUserId == userDetails.AspNetUserId);
 
             if (user != null)
-                return new ObjectResult(Resources.ResourceManager.GetString("ErrorMessage_UserExists")); 
+                return new ObjectResult("ErrorMessage_NoUserFound"); 
 
-            Context.SystemUser.Add(userDetails);
+            Context.SystemUser.Add(SystemUserMapper.MapForCreate(userDetails));
             Context.SaveChanges();
 
-            return new OkObjectResult(Resources.ResourceManager.GetString("SuccessMessage_UserRegistration"));
+            return new OkObjectResult("ok");
 
         }
 

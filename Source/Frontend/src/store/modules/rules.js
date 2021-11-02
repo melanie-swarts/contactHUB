@@ -18,7 +18,6 @@ const rules = {
     v => !!v || 'Address is required'
   ],
   emailRules: [
-    v => !!v || 'Email is required',
     v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
   ],
   contactNumberRules: [
@@ -70,24 +69,7 @@ const rules = {
   ],
   untilDateRules: [
     v => !!v || 'Until date is required'
-  ],
-  auditStatusTypeRules: [
-    v => !!v || 'Audit Status Type is required'
-  ],
-  auditTypeRules: [
-    v => !!v || 'Audit Type is required'
-  ],
-  auditorRules: [
-    v => !!v || 'Auditor is required'
-  ],
-  regAuthRules: [
-    v => !!v || 'Registering Authority is required'
-  ],
-  inspectorRules: [
-    v => {
-      if (v !== undefined && v !== '') return true
-      return 'Inspector / Auditor is required'
-    }
   ]
+
 }
 export default rules

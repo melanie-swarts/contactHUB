@@ -41,6 +41,7 @@
               :rules="contactNumberRules"
               :counter="10"
               :maxlength="10"
+              type="number"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
               label="Primary Contact Number"
               @input="updateContact"
@@ -52,7 +53,7 @@
           <el-col :span="12">
             <v-text-field
               v-model="contact.mobileNumber"
-              :rules="contactNumberRules"
+              type="number"
               :counter="10"
               :maxlength="10"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -66,7 +67,7 @@
           <el-col :span="11">
             <v-text-field
               v-model="contact.workNumber"
-              :rules="contactNumberRules"
+              type="number"
               :counter="10"
               :maxlength="10"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -80,7 +81,7 @@
           <el-col :span="12">
             <v-text-field
               v-model="contact.homeNumber"
-              :rules="contactNumberRules"
+              type="number"
               :counter="10"
               :maxlength="10"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -94,7 +95,6 @@
           <el-col :span="11">
             <v-text-field
               v-model="contact.emailAddress"
-              :rules="emailRules"
               label="E-mail"
               @input="updateContact"
             />
@@ -112,7 +112,52 @@
         </el-row>
 
         <v-text-field v-model="contact.address" label="Address" @input="updateContact"/>
+
+      <v-dialog
+        ref="dialog"
+        v-model="modal"
+        :return-value.sync="contact.Birthdy"
+        persistent
+        width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+          color="#5E7D7E"
+            v-model="contact.Birthdy"
+            label="Birthday"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="contact.Birthdy"          
+          year-icon="mdi-calendar-blank"
+          prev-icon="mdi-skip-previous"
+          next-icon="mdi-skip-next"
+          scrollable
+        >
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            color="#5E7D7E"
+            @click="modal = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="#5E7D7E"
+            @click="$refs.dialog.save(contact.Birthdy)"
+            @input="updateContact"
+          >
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-dialog>
             </el-row>
+
       </v-form>
     </div>
   </div>
@@ -136,7 +181,10 @@ export default {
       nameRules: Rules.nameRules,
       email: '',
       emailRules: Rules.emailRules,
-      contactNumberRules: Rules.contactNumberRules
+      contactNumberRules: Rules.contactNumberRules,
+      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      menu: false,
+      modal: false
     }
   },
   computed: {
@@ -147,6 +195,9 @@ export default {
   methods: {
     updateContact() {
       this.$emit('contact:change', this.contact)
+    },
+    setBirthday() {
+      this.contact.Birthdy = this.date
     }
   }
 }

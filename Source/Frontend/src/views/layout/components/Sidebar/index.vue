@@ -51,46 +51,30 @@
               small
               dark
               fab
-              color="green"
+              color="amber"
               v-on="on"
-              @click="selectLookups()"
+              @click="selectChangePassword()"
             >
-              <v-icon>mdi-database-search</v-icon>
+              <v-icon>mdi-shield-account</v-icon>
             </v-btn>
           </template>
-          <span>Lookups</span>
+          <span>Change Password</span>
         </v-tooltip>
 
-        <v-tooltip right>
+         <v-tooltip right>
           <template v-slot:activator="{ on }">
             <v-btn
               small
               dark
               fab
-              color="indigo"
+              color="purple lighten-1"
               v-on="on"
-              @click="selectDocuments()"
+              @click="selectMyAccount()"
             >
-              <v-icon>mdi-file-document-edit-outline</v-icon>
+              <v-icon>mdi-account-edit</v-icon>
             </v-btn>
           </template>
-          <span>Documents</span>
-        </v-tooltip>
-
-        <v-tooltip right>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              small
-              dark
-              fab
-              color="blue lighten-1"
-              v-on="on"
-              @click="selectContacts()"
-            >
-              <v-icon>mdi-email-outline</v-icon>
-            </v-btn>
-          </template>
-          <span>Contacts</span>
+          <span>My Account</span>
         </v-tooltip>
 
       </v-speed-dial>
@@ -137,8 +121,12 @@ export default {
     this.userRoles = this.$store.state.user.roles
   },
   methods: {
-    selectLookups() {
-      this.$router.push({ name: 'Lookups' })
+    selectChangePassword() {
+      this.$router.push({ name: 'ResetPassword' })
+    },
+
+    selectMyAccount(){
+      this.$router.push({ name: 'UserDetails' })
     }
   }
 }

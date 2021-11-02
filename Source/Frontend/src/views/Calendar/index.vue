@@ -138,6 +138,16 @@
 </template>
 
 <script>
+import store from '@/store/store'
+
+function getCalendarEvents(routeTo, next) {
+  store
+    .dispatch('calendarEvents/fetchcalendarEvents')
+    .then(() => {
+      next()
+    })
+}
+
   export default {
     data: () => ({
       focus: '',
@@ -155,6 +165,9 @@
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
       names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
     }),
+      beforeRouteEnter(routeTo, routeFrom, next) {
+    getCalendarEvents(routeTo, next)
+  },
     mounted () {
       this.$refs.calendar.checkChange()
     },

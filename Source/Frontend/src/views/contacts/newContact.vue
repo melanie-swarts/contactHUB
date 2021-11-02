@@ -48,10 +48,9 @@ export default {
   methods: {
     createContact() {
       if (this.$refs.contactInformationForm.$refs.form.validate()) {
-        if (!this.$store.state.contacts.contacts.find(c => c.emailAddress.toUpperCase() === this.contact.emailAddress.toUpperCase())) {
           this.$store.dispatch('contacts/createContact', this.contact)
             .then(() => {
-              this.$store.dispatch('snackbar/setSnack', this.successMessage(true, this.contact.FirstName + ' was successfully created.', 'success'))
+              this.$store.dispatch('snackbar/setSnack', this.successMessage(true, this.contact.firstName + ' was successfully created.', 'success'))
               this.$router.push({
                 name: 'Contacts'
               })
@@ -60,13 +59,11 @@ export default {
             .catch(() => {
               NProgress.done()
             })
-        } else {
-          this.$store.dispatch('snackbar/setSnack', this.successMessage(true, 'A contact with this email address  ' + this.contact.emailAddress + ' already exists.', 'error'))
-        }
       }
     },
     createFreshContactObject() {
       return {
+        SystemUserId: this.$store.getters.systemUser.id,
         FirstName: '',
         LastName: '',
         PrimaryContactNumber: '',
@@ -75,7 +72,10 @@ export default {
         HomeNumber: '',
         emailAddress: '',
         Website: '',
-        Address: ''
+        Address: '',
+        Birthdy: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        CreatedAt: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        LastViewed: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       }
     },
     updateContact(value) {

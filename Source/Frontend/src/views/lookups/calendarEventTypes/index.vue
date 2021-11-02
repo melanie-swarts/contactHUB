@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="box-info">
       <v-layout class="button-layout" align-end justify-end>
         <router-link :to="{ name: 'NewCalendarEventType' }">
           <v-btn
@@ -34,7 +33,6 @@
               <tbody>
                 <tr v-for="item in items" :key="item.CalendarEventTypeId" @click="rowSelected(item.Id)">
                   <td>{{ item.EventTypeName }}</td>
-                  <td>{{ item.Enabled }}</td>
                 </tr>
               </tbody>
             </template>
@@ -47,7 +45,6 @@
           </v-data-table>
         </v-card>
       </div>
-    </div>
   </div>
 </template>
 
@@ -69,8 +66,7 @@ export default {
     return {
       search: '',
       headers: [
-        { text: 'Calendar Event Type', align: 'left', value: 'Name' },
-        { text: 'Calendar Event Type Enabled', align: 'left', value: 'Enabled' }
+        { text: 'Calendar Event Type', align: 'left', value: 'Name' }
       ]
     }
   },

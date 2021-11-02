@@ -137,11 +137,11 @@ export default {
   border-radius: 0;
 
   :active {
-    background-color: darkslateblue;
+    background-color: gray;
   }
 
     :hover {
-    background-color: darkslateblue;
+    background-color: gray;
   }
 }
 
@@ -251,7 +251,7 @@ $light_gray: #eee;
       font-weight: bold;
     }
     .logo{
-      width: 180;
+      width: auto;
       height: 80px;
       display: block;
       margin-left: auto;

@@ -102,11 +102,11 @@ export default {
   border-radius: 0;
 
   :active {
-    background-color: darkslateblue;
+    background-color: gray;
   }
 
     :hover {
-    background-color: darkslateblue;
+    background-color: gray;
   }
 }
 

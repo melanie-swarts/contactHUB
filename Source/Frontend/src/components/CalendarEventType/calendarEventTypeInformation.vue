@@ -23,20 +23,6 @@
                 :object-array="items"
                 @set-color="setCalendarEventTypeColor($event)" />
             </v-col>
-            <v-spacer/>
-
-            <v-col cols="6">
-              <v-card class="elevation-0">
-                <v-card-title>Options</v-card-title>
-                <v-divider/>
-                <v-card-subtitle class="pb-0 ma-0"><v-checkbox
-                  :disabled="!calendarEventType.Enabled"
-                  v-model="calendarEventType.Enabled"
-                  label="Enabled"
-                  class="small-checkbox"
-                /></v-card-subtitle>
-              </v-card>
-            </v-col>
           </v-row>
         </v-container>
 

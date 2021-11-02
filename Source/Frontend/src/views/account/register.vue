@@ -105,8 +105,18 @@ export default {
       },
       passwordType: 'password',
       loading: false,
-      showDialog: false
+      showDialog: false,
+      redirect: undefined
     }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
+    }
+
   },
   methods: {
     showPwd() {
@@ -129,8 +139,7 @@ export default {
           this.loading = true
           this.$store.dispatch('RegisterNewUser', this.registerForm).then(() => {
             this.loading = false
-            console.log(1)
-            this.$router.push({ name: 'dashboard' })
+            this.$router.push({ path: this.redirect || '/' })
           }).catch(() => {
             this.loading = false
           })
@@ -143,7 +152,6 @@ export default {
   }
 }
 </script>
-
 <style rel="stylesheet/scss" lang="scss">
 
 .btn {
@@ -156,11 +164,11 @@ export default {
   border-radius: 0;
 
   :active {
-    background-color: darkslateblue;
+    background-color: gray;
   }
 
     :hover {
-    background-color: darkslateblue;
+    background-color: gray;
   }
 }
 

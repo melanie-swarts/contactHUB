@@ -1,5 +1,6 @@
 import * as snackbar from '@/store/modules/snackbar.js'
 import * as contacts from '@/store/modules/contacts.js'
+import * as calendarEvents from '@/store/modules/calendarEvents.js'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   modules: {
     app,
     contacts,
+    calendarEvents,
     errorLog,
     permission,
     snackbar,
